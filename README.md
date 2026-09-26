@@ -1,13 +1,23 @@
-# agent-expirycheck
+# agent-expirycheck: inventory expiry tests for AI agent simulators
+
+[![Reproduction checks](https://github.com/ZouhairMudakka/agent-expirycheck/actions/workflows/reproduce.yml/badge.svg?branch=main)](https://github.com/ZouhairMudakka/agent-expirycheck/actions/workflows/reproduce.yml)
+
+Inventory-expiry regression tests for AI agent business simulators, with reproducible findings in pinned **Prosus Vending Bench** and **RetailBench** implementations.
 
 **Check that a business simulator preserves stock expiry before trusting an agent's results.**
 
 An 18-case corpus, a small independent checker, and reproducible findings in two public agent-business simulators. Under the corpus's stated age-preservation contract, moving unchanged stock must not renew its declared age; ordinary sales must respect the simulator's own expiry boundary. The checks also require fresh stock to survive or sell, so discarding everything does not pass.
 
+Use this when transfers appear to reset stock age, expired inventory generates ordinary sales, or you need deterministic simulator checks before a long agent evaluation. Reproduction makes no LLM calls.
+
+**Start here:** [Reproduce the findings](#reproduce) · [Connect your simulator](docs/adapter-contract.md) · [Inspect recorded evidence](results/reference/)
+
 | Pinned implementation | Original | Diagnostic correction | Observed failure family |
 |---|---:|---:|---|
-| [Prosus Vending Bench](https://github.com/ProsusAI/vending-bench/tree/f9a1d7efde193de2242ed5afb1f3a326e362c75d) | 4/10 pass | 10/10 pass | Receipt age is lost across transfers and top-ups |
-| [RetailBench anonymous source](https://anonymous.4open.science/r/RetailBench_ARR-6253/README.md) | 5/8 pass | 8/8 pass | Already-expired units enter ordinary sales before cleanup |
+| [Prosus Vending Bench](https://github.com/ProsusAI/vending-bench/tree/f9a1d7efde193de2242ed5afb1f3a326e362c75d) | 4/10 (40%) | 10/10 (100%) | Receipt age is lost across transfers and top-ups |
+| [RetailBench anonymous source](https://anonymous.4open.science/r/RetailBench_ARR-6253/README.md) | 5/8 (62.5%) | 8/8 (100%) | Already-expired units enter ordinary sales before cleanup |
+
+Under this corpus's stated contract, the diagnostic corrections improve pass rates by **60 percentage points for Prosus** and **37.5 points for RetailBench**. These are selected simulator checks; no percentage improvement in agent profitability, model rankings, or real business savings has been measured.
 
 These are **two root-cause families**, not nine independent bugs or a defect-rate estimate. Prosus is exercised through actual in-process public tool methods, from real simulated paid orders. RetailBench uses its real inventory component with an authored product and passive review/database hooks. Neither is a full LLM evaluation.
 
@@ -69,3 +79,10 @@ The diagnostic patches are not production-ready upgrades. Prosus's cohort valuat
 ## Attribution
 
 Authored by **Zouhair Mudakka**, with AI-assisted research and implementation. New checker, adapters, corpus, and documentation: [MIT](LICENSE). Vendored Prosus files and its derivative patch retain **Apache-2.0**; RetailBench files and its derivative patch retain **MIT** and the anonymous contributors' attribution. Upstream authors do not endorse these findings or corrections. See [NOTICE](NOTICE.md) and the preserved licenses under `third_party/`.
+
+## Related agent reliability tools
+
+Other focused projects by Zouhair Mudakka, each with its own corpus and limits:
+
+- [openapi-bindcheck](https://github.com/ZouhairMudakka/openapi-bindcheck): OpenAPI tool-calling tests for dropped arguments and parameter-name collisions.
+- [a2a-streamcheck](https://github.com/ZouhairMudakka/a2a-streamcheck): A2A client streaming tests for truncated answers and stale replacement text.
