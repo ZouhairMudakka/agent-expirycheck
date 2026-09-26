@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "corpus_sha256": "8f283e30d85fcdadc8d0767a4df2bcaa1005bc23c25667831908f5f224723e02",
+  "adapter": "prosus+retail/corrected",
+  "observations": [
+    {
+      "case_id": "prosus/storage_expiry_control",
+      "case_sha256": "7cece9d8721fa33da6d14a2262441220e0d4b35d80cbf7b81f01a817445e239a",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/aged_load",
+      "case_sha256": "364eb3520291a223caf7a3fdd9ee78f4fae73bc73e008d6893b3e5fec4491ede",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/clear_to_depot",
+      "case_sha256": "518025403e6fa8d72ff01f16addd7f1674a92759df80e0e36af26b39f23c8711",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/top_up_same_cohort",
+      "case_sha256": "af4057827825c6620f3c9932dac88b62efb38c8492667c3128e1e525fe75c63f",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/no_top_up_control",
+      "case_sha256": "ef4cc9d1c1a3cbf793e21976623761021c7cb20d154a651b660920da8645ce53",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/before_expiry_control",
+      "case_sha256": "276f5fe0ec9a7eb218442e15852d958596e341af1ffc0439e6ef92731c604066",
+      "error": null,
+      "remaining_quantity": 40,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/nonperishable_round_trip_control",
+      "case_sha256": "5c43e249e98a27f1766bc04df5f717f5d7b6192e81f0999b67680763286ac447",
+      "error": null,
+      "remaining_quantity": 10,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/sale_after_reported_expiry",
+      "case_sha256": "81d96365d63d6ce8d9a05a36afda7ae336e5588138c471107f7e1ce572982574",
+      "error": null,
+      "ordinary_sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/mixed_old_expires_fresh_survives",
+      "case_sha256": "308993709af013cf888c5708d47d7cc9dafb28c90af3e88d01d7c5163284a59a",
+      "error": null,
+      "remaining_quantity": 5,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/mixed_all_expire",
+      "case_sha256": "686b659bf91aa6d4d6974424d0523a7fee243189d3c6628b566f0c00eb0406d7",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "retail/before-expiry",
+      "case_sha256": "fc60560f8a420b5bb039228112d1ce3848b67eedfdc01a8627e5cabf136f94ca",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-0"
+      ],
+      "expired_removed_ids": [],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/at-expiry",
+      "case_sha256": "57d15e5bf9ee113fa4960908db966ea3b9e9503d90784e5c7a4b02b06cd39b7d",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-0"
+      ],
+      "expired_removed_ids": [],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/after-expiry",
+      "case_sha256": "3814525ac529b112d5c8f27068581e06c0631f3baf2d8650eaf9b1be544e069c",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/unshelved-then-shelved",
+      "case_sha256": "fab44838c74e0525e203f05a550810394d470d96d8bde0de7a562c30d2b28ba2",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/expired-unshelved-cleanup",
+      "case_sha256": "188f01e8f412b32dc7d84126c618cb34a8226b3708aabf90e8a8e23ad7756ee7",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/expired-zero-demand-cleanup",
+      "case_sha256": "1f066244c26cd594b731ce756e594d158caf09dfdba270b56d5ee00e49d16326",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/mixed-expiry-cohorts",
+      "case_sha256": "919a9364400593ac92a345bf11e963a444c3f274ef9733a1206420c5cb79a701",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-1"
+      ],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/fresh-after-old-boundary",
+      "case_sha256": "d906d5c6db7af015083a80d24ef6c459f733ec8ab6873eadc3f95cab272f405e",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-0"
+      ],
+      "expired_removed_ids": [],
+      "remaining_ids": []
+    }
+  ],
+  "metadata": {
+    "source": {
+      "prosus": {
+        "source_manifest_sha256": "d27d4dcae1e3d5397a9fb90b910ce3ae3151277d3aa325c3d8551a2546c09cda",
+        "correction_manifest_sha256": "ee32a2e3b79a75dec6efb38736644aef1fab74c9a2f1aa1c87cfdfb8bb8e9acd",
+        "patch_sha256": "7d5c6a035b1edd3bd3b2f44a7a368acd9674d5997af4138a014eccabac270733",
+        "adapter_sha256": "0c0995fb402b2223dc8f849a4c6da6424012238216d796af20a3235f76a73dbb"
+      },
+      "retail": {
+        "source_manifest_sha256": "9174f33b4b3eea87201a8ab0a817448b0ff86f88254b8119ce6692d3e11c9a45",
+        "correction_manifest_sha256": "e3085d60bf6814be4c770b70af49c9e3e200346d393ee1dea87924a9dcd99a3d",
+        "patch_sha256": "6bd9c0cdbe2dafd05143232142c64db7092bb507d3f20aa29cda89398a9965b4",
+        "adapter_sha256": "ebba7cb3b7bf8d5d9151b459d3a498ea023c6e8f6e00095491c1b9e4587a259a"
+      }
+    }
+  }
+}

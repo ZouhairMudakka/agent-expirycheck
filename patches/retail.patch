@@ -1,0 +1,65 @@
+--- a/module/inventory.py
++++ b/module/inventory.py
+@@ -1,3 +1,7 @@
++# SPDX-License-Identifier: MIT
++# Diagnostic modification for agent-expirycheck, 2026-09-27.
++# Copyright (c) 2026 Zouhair Mudakka. Upstream notices remain applicable.
++# Preserve receipt cohorts (Prosus) or ordinary-sale expiry eligibility (Retail).
+ from __future__ import annotations
+ from collections import defaultdict
+ from datetime import date, datetime, timedelta
+@@ -100,10 +104,14 @@
+         # Try to move any waiting items in before sales occur
+         self._admit_waiting_items()
+ 
+-        # Iterate through all items by SKU to process sales
+-        skus_to_check = list(self.items_by_sku.keys())
+-
+-        current_inventory_skus = list([item for item in self.items_by_sku if len(self.items_by_sku[item]) > 0])
++        # Ordinary sales use only eligible units; leave expired units in place
++        # for the existing end-of-step clearance and lifecycle bookkeeping.
++        sellable_by_sku = {
++            sku_id: [item for item in items if not item.judge_expired(current_date)]
++            for sku_id, items in self.items_by_sku.items()
++        }
++        current_inventory_skus = [sku_id for sku_id, items in sellable_by_sku.items() if items]
++        skus_to_check = list(current_inventory_skus)
+ 
+         cost_of_goods_sold = 0.0
+ 
+@@ -153,7 +161,7 @@
+             if sku_obj is None:
+                 return
+ 
+-            available_items = len(self.items_by_sku[sku_id])
++            available_items = len(sellable_by_sku[sku_id])
+             self.logger.debug(
+                 f"sku_id: {sku_id}, expected_sales: {expected_sales}, available_items: {available_items}"
+             )
+@@ -162,7 +170,7 @@
+             if expected_sales > available_items and sku_obj not in insufficient_skus:
+                 insufficient_skus.append(sku_obj)
+ 
+-            items_to_sell = list(self.items_by_sku[sku_id][:actual_sales])
++            items_to_sell = list(sellable_by_sku[sku_id][:actual_sales])
+             for item in items_to_sell:
+                 cost_of_goods_sold += item.buy_price
+ 
+@@ -283,7 +291,7 @@
+                     )
+ 
+                     # Check if we have enough inventory for the sales demand
+-                    available_items = len(self.items_by_sku[sku_id])
++                    available_items = len(sellable_by_sku[sku_id])
+ 
+                     self.logger.debug(
+                         f"sku_id: {sku_id}, expected_sales: {expected_sales}, available_items: {available_items}"
+@@ -296,7 +304,7 @@
+                             insufficient_skus.append(sku_obj)
+ 
+                     # Work on a copy to avoid mutating while iterating
+-                    items_to_sell = list(self.items_by_sku[sku_id][:actual_sales])
++                    items_to_sell = list(sellable_by_sku[sku_id][:actual_sales])
+ 
+                     # Track cost of goods sold (sum of buy_price for sold items)
+                     for item in items_to_sell:

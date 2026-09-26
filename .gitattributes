@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Source and patch hashes refer to exact published bytes on every platform.
+third_party/** -text
+patches/** -text
+corpus/cases.json -text

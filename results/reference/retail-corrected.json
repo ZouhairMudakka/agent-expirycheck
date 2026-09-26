@@ -1,0 +1,359 @@
+{
+  "observations": [
+    {
+      "case_id": "retail/before-expiry",
+      "case_sha256": "fc60560f8a420b5bb039228112d1ce3848b67eedfdc01a8627e5cabf136f94ca",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-0"
+      ],
+      "expired_removed_ids": [],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/at-expiry",
+      "case_sha256": "57d15e5bf9ee113fa4960908db966ea3b9e9503d90784e5c7a4b02b06cd39b7d",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-0"
+      ],
+      "expired_removed_ids": [],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/after-expiry",
+      "case_sha256": "3814525ac529b112d5c8f27068581e06c0631f3baf2d8650eaf9b1be544e069c",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/unshelved-then-shelved",
+      "case_sha256": "fab44838c74e0525e203f05a550810394d470d96d8bde0de7a562c30d2b28ba2",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/expired-unshelved-cleanup",
+      "case_sha256": "188f01e8f412b32dc7d84126c618cb34a8226b3708aabf90e8a8e23ad7756ee7",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/expired-zero-demand-cleanup",
+      "case_sha256": "1f066244c26cd594b731ce756e594d158caf09dfdba270b56d5ee00e49d16326",
+      "error": null,
+      "ordinary_sold_ids": [],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/mixed-expiry-cohorts",
+      "case_sha256": "919a9364400593ac92a345bf11e963a444c3f274ef9733a1206420c5cb79a701",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-1"
+      ],
+      "expired_removed_ids": [
+        "unit-0"
+      ],
+      "remaining_ids": []
+    },
+    {
+      "case_id": "retail/fresh-after-old-boundary",
+      "case_sha256": "d906d5c6db7af015083a80d24ef6c459f733ec8ab6873eadc3f95cab272f405e",
+      "error": null,
+      "ordinary_sold_ids": [
+        "unit-0"
+      ],
+      "expired_removed_ids": [],
+      "remaining_ids": []
+    }
+  ],
+  "evidence": {
+    "scope": "Authored RetailBench component fixtures; canonical power mode only; no full environment or model evaluation",
+    "corpus_sha256": "8f283e30d85fcdadc8d0767a4df2bcaa1005bc23c25667831908f5f224723e02",
+    "inventory_source_sha256": "0b37a14e99204691d69d30a72b7fc13bb50328196dba714431bde5da49a107ba",
+    "recipe": {
+      "sku_id": "AUTHORED-COHORT",
+      "category": "AUTHORED",
+      "price": 10.0,
+      "buy_price": 4.0,
+      "quality_score": 5.0,
+      "constant_attraction": 10.0,
+      "sigma": 0.0,
+      "promotion_days": 3,
+      "capacity": 20,
+      "python_random_seed": 123,
+      "numpy_random_seed": 123,
+      "category_attraction_aggregation": "power",
+      "category_attraction_rho": 3.0
+    },
+    "dependencies": {
+      "numpy": "2.3.5",
+      "pandas": "3.0.1",
+      "matplotlib": "3.10.8"
+    },
+    "cases": [
+      {
+        "case_id": "retail/before-expiry",
+        "day": "2026-01-03",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": false
+        },
+        "ordinary_sale_records": [
+          {
+            "upc": "AUTHORED-COHORT",
+            "date": "2026-01-03",
+            "move": 1,
+            "price": 10.0,
+            "customer_count": 100
+          }
+        ],
+        "sales_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "returns_by_sku": {
+          "AUTHORED-COHORT": 0
+        },
+        "expired_by_sku": {},
+        "money_earned": 10.0,
+        "cost_of_goods_sold": 4.0
+      },
+      {
+        "case_id": "retail/at-expiry",
+        "day": "2026-01-04",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": false
+        },
+        "ordinary_sale_records": [
+          {
+            "upc": "AUTHORED-COHORT",
+            "date": "2026-01-04",
+            "move": 1,
+            "price": 10.0,
+            "customer_count": 100
+          }
+        ],
+        "sales_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "returns_by_sku": {
+          "AUTHORED-COHORT": 0
+        },
+        "expired_by_sku": {},
+        "money_earned": 10.0,
+        "cost_of_goods_sold": 4.0
+      },
+      {
+        "case_id": "retail/after-expiry",
+        "day": "2026-01-05",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": true
+        },
+        "ordinary_sale_records": [],
+        "sales_by_sku": {},
+        "returns_by_sku": {},
+        "expired_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "money_earned": 0.0,
+        "cost_of_goods_sold": 0.0
+      },
+      {
+        "case_id": "retail/unshelved-then-shelved",
+        "day": "2026-01-05",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": "2026-01-04"
+        },
+        "prelude": {
+          "day": "2026-01-04",
+          "shelved": false,
+          "customers": 100,
+          "ordinary_sold_ids": [],
+          "expired_removed_ids": [],
+          "remaining_ids": [
+            "unit-0"
+          ],
+          "money_earned": 0.0
+        },
+        "native_expired_predicate_before": {
+          "unit-0": true
+        },
+        "ordinary_sale_records": [],
+        "sales_by_sku": {},
+        "returns_by_sku": {},
+        "expired_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "money_earned": 0.0,
+        "cost_of_goods_sold": 0.0
+      },
+      {
+        "case_id": "retail/expired-unshelved-cleanup",
+        "day": "2026-01-05",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": false,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": true
+        },
+        "ordinary_sale_records": [],
+        "sales_by_sku": {},
+        "returns_by_sku": {},
+        "expired_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "money_earned": 0.0,
+        "cost_of_goods_sold": 0.0
+      },
+      {
+        "case_id": "retail/expired-zero-demand-cleanup",
+        "day": "2026-01-05",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 0,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": true
+        },
+        "ordinary_sale_records": [],
+        "sales_by_sku": {},
+        "returns_by_sku": {},
+        "expired_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "money_earned": 0.0,
+        "cost_of_goods_sold": 0.0
+      },
+      {
+        "case_id": "retail/mixed-expiry-cohorts",
+        "day": "2026-01-05",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01",
+            "unit-1": "2026-01-03"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": true,
+          "unit-1": false
+        },
+        "ordinary_sale_records": [
+          {
+            "upc": "AUTHORED-COHORT",
+            "date": "2026-01-05",
+            "move": 1,
+            "price": 10.0,
+            "customer_count": 100
+          }
+        ],
+        "sales_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "returns_by_sku": {
+          "AUTHORED-COHORT": 0
+        },
+        "expired_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "money_earned": 10.0,
+        "cost_of_goods_sold": 4.0
+      },
+      {
+        "case_id": "retail/fresh-after-old-boundary",
+        "day": "2026-01-05",
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-03"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "prelude": null,
+        "native_expired_predicate_before": {
+          "unit-0": false
+        },
+        "ordinary_sale_records": [
+          {
+            "upc": "AUTHORED-COHORT",
+            "date": "2026-01-05",
+            "move": 1,
+            "price": 10.0,
+            "customer_count": 100
+          }
+        ],
+        "sales_by_sku": {
+          "AUTHORED-COHORT": 1
+        },
+        "returns_by_sku": {
+          "AUTHORED-COHORT": 0
+        },
+        "expired_by_sku": {},
+        "money_earned": 10.0,
+        "cost_of_goods_sold": 4.0
+      }
+    ]
+  }
+}

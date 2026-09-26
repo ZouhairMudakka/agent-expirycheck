@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-expirycheck"
+version = "0.1.0"
+description = "Reproducible expiry-integrity checks for agent business simulators"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Zouhair Mudakka"}]
+dependencies = []
+readme = "README.md"
+
+[project.urls]
+Repository = "https://github.com/ZouhairMudakka/agent-expirycheck"
+
+[project.scripts]
+expirycheck = "expirycheck.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this corpus or its findings, please cite this repository and the affected upstream simulators."
+title: "agent-expirycheck: Declared stock-expiry checks for agent business simulators"
+type: software
+authors:
+  - family-names: Mudakka
+    given-names: Zouhair
+repository-code: "https://github.com/ZouhairMudakka/agent-expirycheck"
+version: 0.1.0
+date-released: 2026-09-27
+license: MIT
+abstract: >-
+  A focused empirical case corpus and independent checker for declared stock
+  expiry in agent business simulators, with source-pinned observations,
+  positive controls, and diagnostic corrections. Third-party files retain
+  their own licenses and attribution; see NOTICE.md.

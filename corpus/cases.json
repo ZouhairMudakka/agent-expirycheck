@@ -1,0 +1,465 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "scope": "Authored checks of declared expiry contracts; no demand, pricing, or agent performance oracle.",
+    "day_semantics": "Each case day is the checked phase, not necessarily the adapter's later observation day."
+  },
+  "cases": [
+    {
+      "case_id": "prosus/storage_expiry_control",
+      "kind": "retention",
+      "day": 16,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 40,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Leave the original cohort in storage through its declared expiry cleanup.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/aged_load",
+      "kind": "retention",
+      "day": 16,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 40,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Load eight aging units into an unpriced machine slot, then cross the source cohort expiry.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/clear_to_depot",
+      "kind": "retention",
+      "day": 16,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 40,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Load aging units into an unpriced slot and return them to storage before their original expiry.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/top_up_same_cohort",
+      "kind": "retention",
+      "day": 17,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 40,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Top up an unpriced slot with one unit from the same source cohort, then cross both expiry and the original slot age.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/no_top_up_control",
+      "kind": "retention",
+      "day": 17,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 40,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Leave the same unpriced slot without a top-up through its original expiry cleanup.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/before_expiry_control",
+      "kind": "retention",
+      "day": 14,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 40,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Load aging stock into an unpriced slot and observe it before its declared expiry.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/nonperishable_round_trip_control",
+      "kind": "retention",
+      "day": 16,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 10,
+          "expiry": null
+        }
+      ],
+      "metadata": {
+        "description": "Move nonperishable stock into a slot and back, then wait through the perishable cohort boundary.",
+        "scope": "Public tool operations; aggregate stock of the declared product across storage and all machine slots, with no sales."
+      }
+    },
+    {
+      "case_id": "prosus/sale_after_reported_expiry",
+      "kind": "sale_count",
+      "day": 17,
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "source-cohort",
+          "quantity": 8,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Price the eight transferred units only after their source expiry cleanup and observe the next trading day sales count.",
+        "scope": "Public tool operations; one homogeneous transferred cohort, aggregate ordinary-sale eligibility bound only."
+      }
+    },
+    {
+      "case_id": "prosus/mixed_old_expires_fresh_survives",
+      "kind": "retention",
+      "day": 15,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "old",
+          "quantity": 5,
+          "expiry": 15
+        },
+        {
+          "cohort_id": "fresh",
+          "quantity": 5,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Put five units from each of two publicly reported expiry cohorts in one unpriced slot and cross only the older expiry.",
+        "scope": "Public tool operations; only the selected unpriced slot is observed, using its known transferred cohorts."
+      }
+    },
+    {
+      "case_id": "prosus/mixed_all_expire",
+      "kind": "retention",
+      "day": 16,
+      "expiry_rule": {
+        "phase": "after_expiry",
+        "comparison": "lte"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "old",
+          "quantity": 5,
+          "expiry": 15
+        },
+        {
+          "cohort_id": "fresh",
+          "quantity": 5,
+          "expiry": 16
+        }
+      ],
+      "metadata": {
+        "description": "Observe the same mixed-cohort unpriced slot after both original expiries have passed.",
+        "scope": "Public tool operations; only the selected unpriced slot is observed, using its known transferred cohorts."
+      }
+    },
+    {
+      "case_id": "retail/before-expiry",
+      "kind": "sales",
+      "day": "2026-01-03",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        }
+      ],
+      "sales_policy": "all_eligible",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "description": "Offer one unit before its native expiry date with sufficient controlled customer attraction.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/at-expiry",
+      "kind": "sales",
+      "day": "2026-01-04",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        }
+      ],
+      "sales_policy": "all_eligible",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "description": "Offer one unit on its expiry date, when the native strict-before predicate still considers it eligible.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/after-expiry",
+      "kind": "sales",
+      "day": "2026-01-05",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        }
+      ],
+      "sales_policy": "all_eligible",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "description": "Offer one unit after its native expiry date with sufficient controlled customer attraction.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/unshelved-then-shelved",
+      "kind": "sales",
+      "day": "2026-01-05",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        }
+      ],
+      "sales_policy": "all_eligible",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": "2026-01-04"
+        },
+        "description": "Keep a unit unshelved on its expiry date, then shelve it on the following day.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/expired-unshelved-cleanup",
+      "kind": "sales",
+      "day": "2026-01-05",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        }
+      ],
+      "sales_policy": "none",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": false,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "description": "Leave an expired unit unshelved and observe ordinary sales, expiry removal, and remaining stock.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/expired-zero-demand-cleanup",
+      "kind": "sales",
+      "day": "2026-01-05",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        }
+      ],
+      "sales_policy": "none",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01"
+          },
+          "shelved": true,
+          "customers": 0,
+          "prelude_day": null
+        },
+        "description": "Expose an expired unit with zero customers and observe expiry cleanup.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/mixed-expiry-cohorts",
+      "kind": "sales",
+      "day": "2026-01-05",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-04"
+        },
+        {
+          "cohort_id": "unit-1",
+          "quantity": 1,
+          "expiry": "2026-01-06"
+        }
+      ],
+      "sales_policy": "all_eligible",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-01",
+            "unit-1": "2026-01-03"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "description": "Offer one expired and one fresh unit together under the controlled positive-demand recipe.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    },
+    {
+      "case_id": "retail/fresh-after-old-boundary",
+      "kind": "sales",
+      "day": "2026-01-05",
+      "expiry_rule": {
+        "phase": "before_sales",
+        "comparison": "lt"
+      },
+      "cohorts": [
+        {
+          "cohort_id": "unit-0",
+          "quantity": 1,
+          "expiry": "2026-01-06"
+        }
+      ],
+      "sales_policy": "all_eligible",
+      "cleanup_policy": "all_expired",
+      "metadata": {
+        "fixture": {
+          "unit_begin": {
+            "unit-0": "2026-01-03"
+          },
+          "shelved": true,
+          "customers": 100,
+          "prelude_day": null
+        },
+        "description": "Offer a fresh unit on the same date used by the expired-cohort cases.",
+        "scope": "Authored unit cohorts through native Inventory, SKU and Merchandise components; identity-level post-step lifecycle observations."
+      }
+    }
+  ]
+}

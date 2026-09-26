@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "corpus_sha256": "8f283e30d85fcdadc8d0767a4df2bcaa1005bc23c25667831908f5f224723e02",
+  "adapter": "prosus+retail/corrected",
+  "checked": 18,
+  "passed": 18,
+  "failed": 0,
+  "errors": 0,
+  "cases": [
+    {
+      "case_id": "prosus/storage_expiry_control",
+      "case_sha256": "7cece9d8721fa33da6d14a2262441220e0d4b35d80cbf7b81f01a817445e239a",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 0,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/aged_load",
+      "case_sha256": "364eb3520291a223caf7a3fdd9ee78f4fae73bc73e008d6893b3e5fec4491ede",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 0,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/clear_to_depot",
+      "case_sha256": "518025403e6fa8d72ff01f16addd7f1674a92759df80e0e36af26b39f23c8711",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 0,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/top_up_same_cohort",
+      "case_sha256": "af4057827825c6620f3c9932dac88b62efb38c8492667c3128e1e525fe75c63f",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 0,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/no_top_up_control",
+      "case_sha256": "ef4cc9d1c1a3cbf793e21976623761021c7cb20d154a651b660920da8645ce53",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 0,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/before_expiry_control",
+      "case_sha256": "276f5fe0ec9a7eb218442e15852d958596e341af1ffc0439e6ef92731c604066",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 40,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/nonperishable_round_trip_control",
+      "case_sha256": "5c43e249e98a27f1766bc04df5f717f5d7b6192e81f0999b67680763286ac447",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 10,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/sale_after_reported_expiry",
+      "case_sha256": "81d96365d63d6ce8d9a05a36afda7ae336e5588138c471107f7e1ce572982574",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "maximum_eligible_sales": 0,
+        "scope": "sale eligibility bound only; no cleanup or demand check"
+      }
+    },
+    {
+      "case_id": "prosus/mixed_old_expires_fresh_survives",
+      "case_sha256": "308993709af013cf888c5708d47d7cc9dafb28c90af3e88d01d7c5163284a59a",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 5,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "prosus/mixed_all_expire",
+      "case_sha256": "686b659bf91aa6d4d6974424d0523a7fee243189d3c6628b566f0c00eb0406d7",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "remaining_quantity": 0,
+        "scope": "aggregate retention of unsold source cohorts"
+      }
+    },
+    {
+      "case_id": "retail/before-expiry",
+      "case_sha256": "fc60560f8a420b5bb039228112d1ce3848b67eedfdc01a8627e5cabf136f94ca",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [
+          "unit-0"
+        ],
+        "expired_ids": [],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/at-expiry",
+      "case_sha256": "57d15e5bf9ee113fa4960908db966ea3b9e9503d90784e5c7a4b02b06cd39b7d",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [
+          "unit-0"
+        ],
+        "expired_ids": [],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/after-expiry",
+      "case_sha256": "3814525ac529b112d5c8f27068581e06c0631f3baf2d8650eaf9b1be544e069c",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [],
+        "expired_ids": [
+          "unit-0"
+        ],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/unshelved-then-shelved",
+      "case_sha256": "fab44838c74e0525e203f05a550810394d470d96d8bde0de7a562c30d2b28ba2",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [],
+        "expired_ids": [
+          "unit-0"
+        ],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/expired-unshelved-cleanup",
+      "case_sha256": "188f01e8f412b32dc7d84126c618cb34a8226b3708aabf90e8a8e23ad7756ee7",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [],
+        "expired_ids": [
+          "unit-0"
+        ],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/expired-zero-demand-cleanup",
+      "case_sha256": "1f066244c26cd594b731ce756e594d158caf09dfdba270b56d5ee00e49d16326",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [],
+        "expired_ids": [
+          "unit-0"
+        ],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/mixed-expiry-cohorts",
+      "case_sha256": "919a9364400593ac92a345bf11e963a444c3f274ef9733a1206420c5cb79a701",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [
+          "unit-1"
+        ],
+        "expired_ids": [
+          "unit-0"
+        ],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    },
+    {
+      "case_id": "retail/fresh-after-old-boundary",
+      "case_sha256": "d906d5c6db7af015083a80d24ef6c459f733ec8ab6873eadc3f95cab272f405e",
+      "status": "pass",
+      "violations": [],
+      "derived": {
+        "eligible_ids": [
+          "unit-0"
+        ],
+        "expired_ids": [],
+        "scope": "identity sale eligibility, cleanup, and unit accounting"
+      }
+    }
+  ]
+}

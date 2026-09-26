@@ -1,0 +1,12 @@
+{
+  "files": [
+    {
+      "path": "module/inventory.py",
+      "original_sha256": "c31fb1af43ac6cb2fa803ddb66a3b5fbaf18a8a34e1718e9d8f1f46a944bfd12",
+      "corrected_sha256": "0b37a14e99204691d69d30a72b7fc13bb50328196dba714431bde5da49a107ba"
+    }
+  ],
+  "patch_sha256": "6bd9c0cdbe2dafd05143232142c64db7092bb507d3f20aa29cda89398a9965b4",
+  "license": "MIT",
+  "byte_convention": "Canonical LF text; modification notices included"
+}

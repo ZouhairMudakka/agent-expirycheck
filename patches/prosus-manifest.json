@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/engine.py",
+      "original_sha256": "ceca8bd32334431beb3d989e88389f1e7711bd310d31465ceca14853e99ff53d",
+      "corrected_sha256": "f9a6ab70a1f79c2d2cfe4b043716eb63685a31ed229e6505e7c58eaa1ff956ea"
+    },
+    {
+      "path": "tests/test_stock_age_diagnostic.py",
+      "original_sha256": null,
+      "corrected_sha256": "e895c916a56862a848b0bb48a386af81c980ac03949e33782c6fe0af7c411fcc"
+    }
+  ],
+  "patch_sha256": "7d5c6a035b1edd3bd3b2f44a7a368acd9674d5997af4138a014eccabac270733",
+  "license": "Apache-2.0",
+  "byte_convention": "Canonical LF text; modification notices included"
+}

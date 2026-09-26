@@ -1,0 +1,34 @@
+{
+  "reproduction": "matches_published_results",
+  "original": {
+    "checked": 18,
+    "passed": 9,
+    "failed": 9,
+    "errors": 0
+  },
+  "corrected": {
+    "checked": 18,
+    "passed": 18,
+    "failed": 0,
+    "errors": 0
+  },
+  "upstream_tests_run": true,
+  "runtime_seconds": 7.97,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "corpus_sha256": "8f283e30d85fcdadc8d0767a4df2bcaa1005bc23c25667831908f5f224723e02",
+  "provenance": {
+    "prosus": {
+      "source_manifest_sha256": "d27d4dcae1e3d5397a9fb90b910ce3ae3151277d3aa325c3d8551a2546c09cda",
+      "correction_manifest_sha256": "ee32a2e3b79a75dec6efb38736644aef1fab74c9a2f1aa1c87cfdfb8bb8e9acd",
+      "patch_sha256": "7d5c6a035b1edd3bd3b2f44a7a368acd9674d5997af4138a014eccabac270733",
+      "adapter_sha256": "0c0995fb402b2223dc8f849a4c6da6424012238216d796af20a3235f76a73dbb"
+    },
+    "retail": {
+      "source_manifest_sha256": "9174f33b4b3eea87201a8ab0a817448b0ff86f88254b8119ce6692d3e11c9a45",
+      "correction_manifest_sha256": "e3085d60bf6814be4c770b70af49c9e3e200346d393ee1dea87924a9dcd99a3d",
+      "patch_sha256": "6bd9c0cdbe2dafd05143232142c64db7092bb507d3f20aa29cda89398a9965b4",
+      "adapter_sha256": "ebba7cb3b7bf8d5d9151b459d3a498ea023c6e8f6e00095491c1b9e4587a259a"
+    }
+  },
+  "scope": "Targeted deterministic cases, two root-cause families; no LLM/full-agent evaluation"
+}

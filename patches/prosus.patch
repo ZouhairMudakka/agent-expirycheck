@@ -1,0 +1,427 @@
+--- a/tasks/vending-bench/environment/sim-server/vending/engine.py
++++ b/tasks/vending-bench/environment/sim-server/vending/engine.py
+@@ -1,3 +1,7 @@
++# SPDX-License-Identifier: Apache-2.0
++# Diagnostic modification for agent-expirycheck, 2026-09-27.
++# Copyright (c) 2026 Zouhair Mudakka. Upstream notices remain applicable.
++# Preserve receipt cohorts (Prosus) or ordinary-sale expiry eligibility (Retail).
+ """The Vending-Bench world.
+ 
+ Holds all simulation state, advances the clock as the agent uses tools, and
+@@ -54,7 +58,8 @@
+             "marketing_spend": 0.0,
+             "sealed": False,
+             "pending_card": [],
+-            "machine": {slot: {"product_id": None, "quantity": 0, "price": None}
++            "machine": {slot: {"product_id": None, "quantity": 0, "price": None,
++                               "batches": []}
+                         for slot in config.all_slots()},
+             "storage": {},
+             "emails": [],
+@@ -198,7 +203,7 @@
+                     card += sale.unit_price
+                 else:
+                     cash += sale.unit_price
+-            slot["quantity"] -= sale.units
++            self._take_slot_stock(slot, sale.units)
+             units += sale.units
+             amount = _round(sale.units * sale.unit_price)
+             revenue += amount
+@@ -298,41 +303,95 @@
+     # --- storage -------------------------------------------------------------
+ 
+     def _add_stock(self, product_id: str, quantity: int, unit_cost: float) -> None:
+-        entry = self.s["storage"].setdefault(
+-            product_id, {"quantity": 0, "batches": []}
+-        )
+-        entry["quantity"] += quantity
++        """Receive new goods. Transfers must use _return_stock instead."""
+         product = PRODUCTS[product_id]
+         expiry = (
+             self.s["day"] + product.shelf_life_days
+             if product.shelf_life_days else None
+         )
+-        entry["batches"].append({
++        self._return_stock(product_id, [{
+             "quantity": quantity, "unit_cost": _round(unit_cost),
+             "received_day": self.s["day"], "expiry_day": expiry,
+-        })
++        }])
++
++    def _return_stock(self, product_id: str, batches: list[dict]) -> None:
++        """Move existing receipt cohorts into storage without renewing them."""
++        if not batches:
++            return
++        entry = self.s["storage"].setdefault(
++            product_id, {"quantity": 0, "batches": []}
++        )
++        entry["quantity"] += sum(b["quantity"] for b in batches)
++        entry["batches"].extend(dict(b) for b in batches)
++        entry["batches"].sort(key=lambda b: b["received_day"])
++
++    @staticmethod
++    def _extract_batches(batches: list[dict], quantity: int) -> list[dict]:
++        """Split out FIFO cohorts, retaining original receipt/cost/expiry data."""
++        batches.sort(key=lambda b: b["received_day"])
++        remaining = quantity
++        taken = []
++        for batch in list(batches):
++            if remaining <= 0:
++                break
++            units = min(batch["quantity"], remaining)
++            taken.append({**batch, "quantity": units})
++            batch["quantity"] -= units
++            remaining -= units
++            if batch["quantity"] <= 0:
++                batches.remove(batch)
++        return taken
++
++    def _slot_batches(self, slot: dict) -> list[dict]:
++        """Materialize only the limited legacy shape used by upstream fixtures.
++
++        A slot without batches cannot reveal its true receipt age. For these
++        hand-authored fixtures only, retain their loaded_day convention. This
++        fallback is not a migration guarantee for historical persisted runs.
++        Corrected fresh runs always carry the original receipt batches.
++        """
++        if slot.get("quantity", 0) <= 0:
++            slot["batches"] = []
++        elif "batches" not in slot:
++            received = slot.get("loaded_day", self.s["day"])
++            product = PRODUCTS[slot["product_id"]]
++            slot["batches"] = [{
++                "quantity": slot["quantity"],
++                "unit_cost": slot.get("unit_cost", 0.0),
++                "received_day": received,
++                "expiry_day": (received + product.shelf_life_days
++                               if product.shelf_life_days else None),
++            }]
++        if sum(b["quantity"] for b in slot["batches"]) != slot.get("quantity", 0):
++            raise ValueError("Slot quantity disagrees with receipt batches")
++        return slot["batches"]
++
++    @staticmethod
++    def _sync_slot_stock(slot: dict) -> None:
++        slot["quantity"] = sum(b["quantity"] for b in slot["batches"])
++        cost = sum(b["quantity"] * b["unit_cost"] for b in slot["batches"])
++        slot["unit_cost"] = _round(cost / max(1, slot["quantity"]))
++
++    def _take_slot_stock(self, slot: dict, quantity: int) -> list[dict]:
++        batches = self._extract_batches(self._slot_batches(slot), quantity)
++        self._sync_slot_stock(slot)
++        return batches
+ 
+     def _take_stock(self, product_id: str, quantity: int) -> tuple[int, float]:
+         """Remove up to `quantity` units, oldest batch first. Returns (taken, cost)."""
++        batches = self._take_stock_batches(product_id, quantity)
++        return (sum(b["quantity"] for b in batches),
++                _round(sum(b["quantity"] * b["unit_cost"] for b in batches)))
++
++    def _take_stock_batches(self, product_id: str, quantity: int) -> list[dict]:
+         entry = self.s["storage"].get(product_id)
+         if not entry:
+-            return 0, 0.0
+-        remaining = quantity
+-        cost = 0.0
+-        for batch in list(entry["batches"]):
+-            if remaining <= 0:
+-                break
+-            take = min(batch["quantity"], remaining)
+-            batch["quantity"] -= take
+-            remaining -= take
+-            cost += take * batch["unit_cost"]
+-            if batch["quantity"] <= 0:
+-                entry["batches"].remove(batch)
+-        taken = quantity - remaining
+-        entry["quantity"] -= taken
++            return []
++        batches = self._extract_batches(entry["batches"], quantity)
++        entry["quantity"] -= sum(b["quantity"] for b in batches)
+         if entry["quantity"] <= 0 and not entry["batches"]:
+             self.s["storage"].pop(product_id, None)
+-        return taken, _round(cost)
++        return batches
+ 
+     def _spoilage(self) -> list[str]:
+         notices = []
+@@ -355,15 +414,18 @@
+             pid = s.get("product_id")
+             if not pid or not s.get("quantity"):
+                 continue
+-            product = PRODUCTS.get(pid)
+-            if product and product.shelf_life_days:
+-                loaded = s.get("loaded_day", self.s["day"])
+-                if self.s["day"] - loaded >= product.shelf_life_days:
+-                    notices.append(
+-                        f"{s['quantity']} x {product.name} in slot {slot} went out of "
+-                        "date and were removed."
+-                    )
+-                    s["quantity"] = 0
++            batches = self._slot_batches(s)
++            due = [b for b in batches if b["expiry_day"] is not None
++                   and b["expiry_day"] <= self.s["day"]]
++            spoiled = sum(b["quantity"] for b in due)
++            if spoiled:
++                s["batches"] = [b for b in batches if b not in due]
++                self._sync_slot_stock(s)
++                notices.append(
++                    f"{spoiled} x {PRODUCTS[pid].name} in slot {slot} went out of "
++                    "date and were removed."
++                )
++                if not s["quantity"]:
+                     s["product_id"] = None
+         return notices
+ 
+@@ -490,7 +552,8 @@
+                 total += batch["quantity"] * batch["unit_cost"]
+         for s in self.s["machine"].values():
+             if s.get("product_id") and s.get("quantity"):
+-                total += s["quantity"] * s.get("unit_cost", 0.0)
++                total += sum(b["quantity"] * b["unit_cost"]
++                             for b in self._slot_batches(s))
+         return _round(total)
+ 
+     # --- mail ----------------------------------------------------------------
+@@ -1250,8 +1313,7 @@
+                         "replace it in one trip, or clear_slot to empty it.",
+                     )
+                 old_id, old_qty = current["product_id"], current["quantity"]
+-                self._add_stock(old_id, old_qty, current.get("unit_cost", 0.0))
+-                current["quantity"] = 0
++                self._return_stock(old_id, self._take_slot_stock(current, old_qty))
+                 returned = (f"Returned {old_qty} x {PRODUCTS[old_id].name} from "
+                             f"slot {slot} to the depot.")
+             # The slot sold out and is being repurposed. Drop the old product's
+@@ -1260,6 +1322,7 @@
+             current["product_id"] = None
+             current["price"] = None
+             current["unit_cost"] = 0.0
++            current["batches"] = []
+ 
+         cap = config.slot_capacity(slot)
+         room = cap - current.get("quantity", 0)
+@@ -1268,19 +1331,17 @@
+                 tool, f"Slot {slot} is already full ({cap} units)."
+             )
+         want = min(quantity, room)
+-        taken, cost = self._take_stock(product.id, want)
++        batches = self._take_stock_batches(product.id, want)
++        taken = sum(b["quantity"] for b in batches)
+         if taken == 0:
+             return self._finish(
+                 tool,
+                 f"No {product.name} in storage. Order some from a wholesaler first.",
+             )
+-        prior_qty = current.get("quantity", 0)
+-        prior_cost = prior_qty * current.get("unit_cost", 0.0)
++        self._slot_batches(current).extend(batches)
++        current["batches"].sort(key=lambda b: b["received_day"])
+         current["product_id"] = product.id
+-        current["quantity"] = prior_qty + taken
+-        current["unit_cost"] = _round(
+-            (prior_cost + cost) / max(1, current["quantity"])
+-        )
++        self._sync_slot_stock(current)
+         current.setdefault("price", None)
+         current["loaded_day"] = self.s["day"]
+ 
+@@ -1306,12 +1367,14 @@
+             return self._finish("clear_slot", f"No slot {slot!r}.")
+         s = self.s["machine"][slot]
+         if not s.get("product_id") or s.get("quantity", 0) <= 0:
+-            s.update({"product_id": None, "quantity": 0, "price": None})
++            s.update({"product_id": None, "quantity": 0, "price": None,
++                      "unit_cost": 0.0, "batches": []})
+             return self._finish("clear_slot", f"Slot {slot} was already empty.")
+         pid = s["product_id"]
+         qty = s["quantity"]
+-        self._add_stock(pid, qty, s.get("unit_cost", 0.0))
+-        s.update({"product_id": None, "quantity": 0, "price": None, "unit_cost": 0.0})
++        self._return_stock(pid, self._take_slot_stock(s, qty))
++        s.update({"product_id": None, "quantity": 0, "price": None,
++                  "unit_cost": 0.0, "batches": []})
+         return self._finish(
+             "clear_slot",
+             f"Returned {qty} x {PRODUCTS[pid].name} from slot {slot} to storage.",
+--- /dev/null
++++ b/tests/test_stock_age_diagnostic.py
+@@ -0,0 +1,179 @@
++# SPDX-License-Identifier: Apache-2.0
++# Diagnostic modification for agent-expirycheck, 2026-09-27.
++# Copyright (c) 2026 Zouhair Mudakka. Upstream notices remain applicable.
++# Preserve receipt cohorts (Prosus) or ordinary-sale expiry eligibility (Retail).
++"""Diagnostic regression tests for receipt age, not production-run migration.
++
++These unit tests construct receipts and clock positions directly to isolate
++mixed-cohort behavior. The separate probe_prosus.py exercises public procurement
++and transfer tools from an unmodified new world. Demand is fixed only where a
++test needs an exact known sale count; the engine's demand code is unchanged.
++"""
++
++from __future__ import annotations
++
++import json
++import sys
++from pathlib import Path
++
++import pytest
++
++ROOT = Path(__file__).resolve().parent.parent
++sys.path.insert(0, str(ROOT / "tasks/vending-bench/environment/sim-server"))
++
++from vending import config, demand  # noqa: E402
++from vending.engine import Engine  # noqa: E402
++
++PID = "sandwich-cheese"
++SLOT = "AI-LOUNGE:SNACK:C1"
++
++
++def receipt(engine, day, quantity, unit_cost):
++    engine.s["day"] = day
++    engine.s["minute"] = config.DAY_START_MINUTE
++    engine._add_stock(PID, quantity, unit_cost)
++
++
++def mixed_slot():
++    engine = Engine.new(seed=99)
++    receipt(engine, 1, 3, 1.01)  # expires at the end of day 4
++    assert "Loaded 3 x" in engine.tool_restock_machine(SLOT, PID, 3)
++    receipt(engine, 3, 4, 1.07)  # expires at the end of day 6
++    assert "Loaded 4 x" in engine.tool_restock_machine(SLOT, PID, 4)
++    return engine
++
++
++def counts_by_receipt(batches):
++    result = {}
++    for batch in batches:
++        key = (batch["received_day"], batch["expiry_day"], batch["unit_cost"])
++        result[key] = result.get(key, 0) + batch["quantity"]
++    return result
++
++
++def wait_until(engine, day):
++    while engine.s["day"] < day:
++        engine.tool_wait_for_next_day()
++    assert engine.s["day"] == day
++
++
++def test_mixed_top_up_spoils_only_the_due_cohort():
++    engine = mixed_slot()
++    wait_until(engine, 4)
++    assert engine.s["machine"][SLOT]["quantity"] == 7
++    wait_until(engine, 5)
++    slot = engine.s["machine"][SLOT]
++    assert slot["quantity"] == 4
++    assert counts_by_receipt(slot["batches"]) == {(3, 6, 1.07): 4}
++    assert engine.s["units_sold"] == 0  # unpriced stock
++    wait_until(engine, 7)
++    assert slot["quantity"] == 0
++    assert slot["batches"] == []
++
++
++@pytest.mark.parametrize("sold", [1, 3, 5])
++def test_sales_consume_old_cohort_before_fresh_cohort(monkeypatch, sold):
++    engine = mixed_slot()
++    engine.tool_set_price(SLOT, 3.00)
++    monkeypatch.setattr(demand, "simulate_day", lambda *args: (
++        [demand.SlotSale(SLOT, PID, sold, 3.00)], {}
++    ))
++    engine.end_of_day()  # day 3, neither cohort is due
++    expected = {}
++    if sold < 3:
++        expected[(1, 4, 1.01)] = 3 - sold
++    fresh_remaining = 4 - max(0, sold - 3)
++    expected[(3, 6, 1.07)] = fresh_remaining
++    assert counts_by_receipt(engine.s["machine"][SLOT]["batches"]) == expected
++    assert engine.s["units_sold"] == sold
++    assert engine.s["gross_revenue"] == pytest.approx(3.00 * sold)
++
++    monkeypatch.setattr(demand, "simulate_day", lambda *args: ([], {}))
++    engine.s["day"] = 4
++    engine.end_of_day()
++    assert counts_by_receipt(engine.s["machine"][SLOT]["batches"]) == {
++        (3, 6, 1.07): fresh_remaining,
++    }
++
++
++def test_expiry_day_sales_precede_end_of_day_spoilage(monkeypatch):
++    engine = mixed_slot()
++    engine.s["day"] = 4
++    engine.tool_set_price(SLOT, 3.00)
++    monkeypatch.setattr(demand, "simulate_day", lambda *args: (
++        [demand.SlotSale(SLOT, PID, 2, 3.00)], {}
++    ))
++    notices = engine.end_of_day()
++    assert engine.s["units_sold"] == 2
++    assert engine.s["gross_revenue"] == 6.00
++    assert engine.s["machine"][SLOT]["quantity"] == 4
++    assert any("1 x Fresh Cheese Sandwich in slot" in notice for notice in notices)
++
++
++def test_clear_and_partial_reload_preserve_receipts_cost_and_fifo():
++    engine = Engine.new(seed=99)
++    receipt(engine, 1, 3, 1.01)
++    engine.tool_restock_machine(SLOT, PID, 3)
++    receipt(engine, 3, 4, 1.07)
++    before = engine.net_worth()
++    engine.tool_clear_slot(SLOT)
++    # Returning old goods after new goods arrived must not make them newest.
++    engine.tool_restock_machine(SLOT, PID, 5)
++    assert counts_by_receipt(engine.s["machine"][SLOT]["batches"]) == {
++        (1, 4, 1.01): 3, (3, 6, 1.07): 2,
++    }
++    assert counts_by_receipt(engine.s["storage"][PID]["batches"]) == {
++        (3, 6, 1.07): 2,
++    }
++    assert engine.net_worth() == before
++    engine.tool_clear_slot(SLOT)
++    assert counts_by_receipt(engine.s["storage"][PID]["batches"]) == {
++        (1, 4, 1.01): 3, (3, 6, 1.07): 4,
++    }
++    assert engine.net_worth() == before
++
++
++def test_swap_returns_each_age_cohort_without_renewing_it():
++    engine = mixed_slot()
++    replacement = "crisps-paprika-335g"
++    engine._add_stock(replacement, 2, 1.30)
++    before = engine.net_worth()
++    before_minute = engine.s["minute"]
++    out = engine.tool_swap_item(SLOT, replacement, 2)
++    assert "Returned 7 x" in out
++    assert engine.s["minute"] - before_minute == config.TOOL_MINUTES["swap_item"]
++    assert counts_by_receipt(engine.s["storage"][PID]["batches"]) == {
++        (1, 4, 1.01): 3, (3, 6, 1.07): 4,
++    }
++    assert engine.net_worth() == before
++    wait_until(engine, 5)
++    assert engine.s["storage"][PID]["quantity"] == 4
++    assert engine.s["machine"][SLOT]["quantity"] == 2
++
++
++def test_corrected_json_state_preserves_age_across_restart():
++    engine = mixed_slot()
++    resumed = Engine(json.loads(json.dumps(engine.s)))
++    resumed.tool_clear_slot(SLOT)
++    resumed.tool_restock_machine(SLOT, PID, 7)
++    wait_until(resumed, 5)
++    assert counts_by_receipt(resumed.s["machine"][SLOT]["batches"]) == {
++        (3, 6, 1.07): 4,
++    }
++
++
++def test_capacity_limited_top_up_keeps_unloaded_fresh_cohort_in_storage():
++    engine = Engine.new(seed=99)
++    receipt(engine, 1, 4, 1.01)
++    engine.tool_restock_machine(SLOT, PID, 4)
++    receipt(engine, 3, 10, 1.07)
++    assert "Loaded 6 x" in engine.tool_restock_machine(SLOT, PID, 10)
++    wait_until(engine, 5)
++    assert engine.s["machine"][SLOT]["quantity"] == 6
++    assert engine.s["storage"][PID]["quantity"] == 4
++    assert counts_by_receipt(engine.s["machine"][SLOT]["batches"]) == {
++        (3, 6, 1.07): 6,
++    }
++    assert counts_by_receipt(engine.s["storage"][PID]["batches"]) == {
++        (3, 6, 1.07): 4,
++    }

@@ -1,0 +1,983 @@
+{
+  "observations": [
+    {
+      "case_id": "prosus/storage_expiry_control",
+      "case_sha256": "7cece9d8721fa33da6d14a2262441220e0d4b35d80cbf7b81f01a817445e239a",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/aged_load",
+      "case_sha256": "364eb3520291a223caf7a3fdd9ee78f4fae73bc73e008d6893b3e5fec4491ede",
+      "error": null,
+      "remaining_quantity": 8,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/clear_to_depot",
+      "case_sha256": "518025403e6fa8d72ff01f16addd7f1674a92759df80e0e36af26b39f23c8711",
+      "error": null,
+      "remaining_quantity": 8,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/top_up_same_cohort",
+      "case_sha256": "af4057827825c6620f3c9932dac88b62efb38c8492667c3128e1e525fe75c63f",
+      "error": null,
+      "remaining_quantity": 8,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/no_top_up_control",
+      "case_sha256": "ef4cc9d1c1a3cbf793e21976623761021c7cb20d154a651b660920da8645ce53",
+      "error": null,
+      "remaining_quantity": 0,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/before_expiry_control",
+      "case_sha256": "276f5fe0ec9a7eb218442e15852d958596e341af1ffc0439e6ef92731c604066",
+      "error": null,
+      "remaining_quantity": 40,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/nonperishable_round_trip_control",
+      "case_sha256": "5c43e249e98a27f1766bc04df5f717f5d7b6192e81f0999b67680763286ac447",
+      "error": null,
+      "remaining_quantity": 10,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/sale_after_reported_expiry",
+      "case_sha256": "81d96365d63d6ce8d9a05a36afda7ae336e5588138c471107f7e1ce572982574",
+      "error": null,
+      "ordinary_sold_quantity": 2
+    },
+    {
+      "case_id": "prosus/mixed_old_expires_fresh_survives",
+      "case_sha256": "308993709af013cf888c5708d47d7cc9dafb28c90af3e88d01d7c5163284a59a",
+      "error": null,
+      "remaining_quantity": 10,
+      "sold_quantity": 0
+    },
+    {
+      "case_id": "prosus/mixed_all_expire",
+      "case_sha256": "686b659bf91aa6d4d6974424d0523a7fee243189d3c6628b566f0c00eb0406d7",
+      "error": null,
+      "remaining_quantity": 10,
+      "sold_quantity": 0
+    }
+  ],
+  "evidence": {
+    "seed": 99,
+    "diagnostics": {
+      "storage_expiry_control": {
+        "observation_day": 17,
+        "counts": {
+          "depot": 0,
+          "machine": 0,
+          "total": 0
+        },
+        "units_sold": 0
+      },
+      "aged_load": {
+        "observation_day": 17,
+        "counts": {
+          "depot": 0,
+          "machine": 8,
+          "total": 8
+        },
+        "units_sold": 0
+      },
+      "clear_to_depot": {
+        "observation_day": 17,
+        "counts": {
+          "depot": 8,
+          "machine": 0,
+          "total": 8
+        },
+        "units_sold": 0
+      },
+      "top_up_same_cohort": {
+        "observation_day": 18,
+        "counts": {
+          "depot": 0,
+          "machine": 8,
+          "total": 8
+        },
+        "units_sold": 0
+      },
+      "no_top_up_control": {
+        "observation_day": 18,
+        "counts": {
+          "depot": 0,
+          "machine": 0,
+          "total": 0
+        },
+        "units_sold": 0
+      },
+      "before_expiry_control": {
+        "observation_day": 15,
+        "counts": {
+          "depot": 32,
+          "machine": 8,
+          "total": 40
+        },
+        "units_sold": 0
+      },
+      "sale_after_reported_expiry": {
+        "sale_day": 17,
+        "ordinary_sold_quantity": 2,
+        "synthetic_gross_revenue": 8.4,
+        "currency": "EUR"
+      }
+    },
+    "traces": {
+      "setup": [
+        {
+          "tool": "order_goods",
+          "args": [
+            "bakker-en-zoon",
+            {
+              "sandwich-cheese": 40,
+              "cola-500ml": 10
+            }
+          ],
+          "kwargs": {},
+          "day_before": 1,
+          "day_after": 1,
+          "response": "{\"order_id\": \"PO-1001\", \"paid\": 78.6, \"delivery_day\": 13, \"lines\": [{\"product_id\": \"sandwich-cheese\", \"quantity\": 40, \"unit_price\": 1.76}, {\"product_id\": \"cola-500ml\", \"quantity\": 10, \"unit_price\": 0.82}]}\n\n[Day 1/30 — Mon 05 Jan 2026 09:25 — balance €1,421.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 1,
+          "day_after": 2,
+          "response": "You close up for the night.\n\n--- Day 2, Tuesday 06 January 2026. Weather: rainy. Balance €1,409.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 2/30 — Tue 06 Jan 2026 09:00 — balance €1,409.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 2,
+          "day_after": 3,
+          "response": "You close up for the night.\n\n--- Day 3, Wednesday 07 January 2026. Weather: cold. Balance €1,397.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 3/30 — Wed 07 Jan 2026 09:00 — balance €1,397.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 3,
+          "day_after": 4,
+          "response": "You close up for the night.\n\n--- Day 4, Thursday 08 January 2026. Weather: cold. Balance €1,385.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 4/30 — Thu 08 Jan 2026 09:00 — balance €1,385.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 4,
+          "day_after": 5,
+          "response": "You close up for the night.\n\n--- Day 5, Friday 09 January 2026. Weather: rainy. Balance €1,373.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 5/30 — Fri 09 Jan 2026 09:00 — balance €1,373.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 5,
+          "day_after": 6,
+          "response": "You close up for the night.\n\n--- Day 6, Saturday 10 January 2026. Weather: cold. Balance €1,361.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 6/30 — Sat 10 Jan 2026 09:00 — balance €1,361.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 6,
+          "day_after": 7,
+          "response": "You close up for the night.\n\n--- Day 7, Sunday 11 January 2026. Weather: cold. Balance €1,349.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 7/30 — Sun 11 Jan 2026 09:00 — balance €1,349.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 7,
+          "day_after": 8,
+          "response": "You close up for the night.\n\n--- Day 8, Monday 12 January 2026. Weather: cold. Balance €1,337.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 8/30 — Mon 12 Jan 2026 09:00 — balance €1,337.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 8,
+          "day_after": 9,
+          "response": "You close up for the night.\n\n--- Day 9, Tuesday 13 January 2026. Weather: rainy. Balance €1,325.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 9/30 — Tue 13 Jan 2026 09:00 — balance €1,325.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 9,
+          "day_after": 10,
+          "response": "You close up for the night.\n\n--- Day 10, Wednesday 14 January 2026. Weather: cold. Balance €1,313.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 10/30 — Wed 14 Jan 2026 09:00 — balance €1,313.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 10,
+          "day_after": 11,
+          "response": "You close up for the night.\n\n--- Day 11, Thursday 15 January 2026. Weather: rainy. Balance €1,301.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 11/30 — Thu 15 Jan 2026 09:00 — balance €1,301.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 11,
+          "day_after": 12,
+          "response": "You close up for the night.\n\n--- Day 12, Friday 16 January 2026. Weather: rainy. Balance €1,289.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 12/30 — Fri 16 Jan 2026 09:00 — balance €1,289.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 12,
+          "day_after": 13,
+          "response": "You close up for the night.\n\n--- Day 13, Saturday 17 January 2026. Weather: cold. Balance €1,277.40. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 13/30 — Sat 17 Jan 2026 09:00 — balance €1,277.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 13,
+          "day_after": 14,
+          "response": "You close up for the night.\n\nDelivery PO-1001 arrived in storage.\n--- Day 14, Sunday 18 January 2026. Weather: cold. Balance €1,265.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 14/30 — Sun 18 Jan 2026 09:00 — balance €1,265.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\nsandwich-cheese          Fresh Cheese Sandwich              large     40  €1.76\n                           batch of 40 expires day 16\n\nStock at cost: €78.60\n\n[Day 14/30 — Sun 18 Jan 2026 09:25 — balance €1,265.40]"
+        }
+      ],
+      "storage_expiry_control": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n40 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\n\nStock at cost: €8.20\n\n[Day 17/30 — Wed 21 Jan 2026 09:25 — balance €1,229.40]"
+        },
+        {
+          "tool": "get_machine_inventory",
+          "args": [
+            "AI-LOUNGE:SNACK"
+          ],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Prosus Vending Bench — six machines at three locations. Depot: Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam\nRows A,B hold small items (18 units per slot). Rows C,D hold large items (10 units per slot). All DRINKS slots take large beverages.\n\nslot   takes  product                             qty   of  price\nAI-LOUNGE:SNACK:A1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:C1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C3 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D3 large  (empty)                               0   10  -\n\n[Day 17/30 — Wed 21 Jan 2026 09:50 — balance €1,229.40]"
+        }
+      ],
+      "aged_load": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            8
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Loaded 8 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (8/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 15/30 — Mon 19 Jan 2026 09:45 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n32 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\n\nStock at cost: €8.20\n\n[Day 17/30 — Wed 21 Jan 2026 09:25 — balance €1,229.40]"
+        },
+        {
+          "tool": "get_machine_inventory",
+          "args": [
+            "AI-LOUNGE:SNACK"
+          ],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Prosus Vending Bench — six machines at three locations. Depot: Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam\nRows A,B hold small items (18 units per slot). Rows C,D hold large items (10 units per slot). All DRINKS slots take large beverages.\n\nslot   takes  product                             qty   of  price\nAI-LOUNGE:SNACK:A1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:C1 large  Fresh Cheese Sandwich                 8   10  NOT SET\nAI-LOUNGE:SNACK:C2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C3 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D3 large  (empty)                               0   10  -\n\nSlots with stock but no price sell nothing: AI-LOUNGE:SNACK:C1\n\n[Day 17/30 — Wed 21 Jan 2026 09:50 — balance €1,229.40]"
+        }
+      ],
+      "clear_to_depot": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            8
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Loaded 8 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (8/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 15/30 — Mon 19 Jan 2026 09:45 — balance €1,253.40]"
+        },
+        {
+          "tool": "clear_slot",
+          "args": [
+            "AI-LOUNGE:SNACK:C1"
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Returned 8 x Fresh Cheese Sandwich from slot AI-LOUNGE:SNACK:C1 to storage.\n\n[Day 15/30 — Mon 19 Jan 2026 10:15 — balance €1,253.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\nsandwich-cheese          Fresh Cheese Sandwich              large     40  €1.76\n                           batch of 32 expires day 16\n                           batch of 8 expires day 18\n\nStock at cost: €78.60\n\n[Day 15/30 — Mon 19 Jan 2026 10:40 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n32 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\nsandwich-cheese          Fresh Cheese Sandwich              large      8  €1.76\n                           batch of 8 expires day 18\n\nStock at cost: €22.28\n\n[Day 17/30 — Wed 21 Jan 2026 09:25 — balance €1,229.40]"
+        },
+        {
+          "tool": "get_machine_inventory",
+          "args": [
+            "AI-LOUNGE:SNACK"
+          ],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Prosus Vending Bench — six machines at three locations. Depot: Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam\nRows A,B hold small items (18 units per slot). Rows C,D hold large items (10 units per slot). All DRINKS slots take large beverages.\n\nslot   takes  product                             qty   of  price\nAI-LOUNGE:SNACK:A1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:C1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C3 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D3 large  (empty)                               0   10  -\n\n[Day 17/30 — Wed 21 Jan 2026 09:50 — balance €1,229.40]"
+        }
+      ],
+      "top_up_same_cohort": [
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            7
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 7 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (7/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 10:10 — balance €1,265.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            1
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Loaded 1 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (8/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 15/30 — Mon 19 Jan 2026 09:45 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n32 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 18,
+          "response": "You close up for the night.\n\n--- Day 18, Thursday 22 January 2026. Weather: rainy. Balance €1,217.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 18/30 — Thu 22 Jan 2026 09:00 — balance €1,217.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 18,
+          "day_after": 18,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\n\nStock at cost: €8.20\n\n[Day 18/30 — Thu 22 Jan 2026 09:25 — balance €1,217.40]"
+        },
+        {
+          "tool": "get_machine_inventory",
+          "args": [
+            "AI-LOUNGE:SNACK"
+          ],
+          "kwargs": {},
+          "day_before": 18,
+          "day_after": 18,
+          "response": "Prosus Vending Bench — six machines at three locations. Depot: Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam\nRows A,B hold small items (18 units per slot). Rows C,D hold large items (10 units per slot). All DRINKS slots take large beverages.\n\nslot   takes  product                             qty   of  price\nAI-LOUNGE:SNACK:A1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:C1 large  Fresh Cheese Sandwich                 8   10  NOT SET\nAI-LOUNGE:SNACK:C2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C3 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D3 large  (empty)                               0   10  -\n\nSlots with stock but no price sell nothing: AI-LOUNGE:SNACK:C1\n\n[Day 18/30 — Thu 22 Jan 2026 09:50 — balance €1,217.40]"
+        }
+      ],
+      "no_top_up_control": [
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            7
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 7 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (7/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 10:10 — balance €1,265.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n33 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 18,
+          "response": "You close up for the night.\n\n7 x Fresh Cheese Sandwich in slot AI-LOUNGE:SNACK:C1 went out of date and were removed.\n--- Day 18, Thursday 22 January 2026. Weather: rainy. Balance €1,217.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 18/30 — Thu 22 Jan 2026 09:00 — balance €1,217.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 18,
+          "day_after": 18,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\n\nStock at cost: €8.20\n\n[Day 18/30 — Thu 22 Jan 2026 09:25 — balance €1,217.40]"
+        },
+        {
+          "tool": "get_machine_inventory",
+          "args": [
+            "AI-LOUNGE:SNACK"
+          ],
+          "kwargs": {},
+          "day_before": 18,
+          "day_after": 18,
+          "response": "Prosus Vending Bench — six machines at three locations. Depot: Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam\nRows A,B hold small items (18 units per slot). Rows C,D hold large items (10 units per slot). All DRINKS slots take large beverages.\n\nslot   takes  product                             qty   of  price\nAI-LOUNGE:SNACK:A1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:C1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C3 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D3 large  (empty)                               0   10  -\n\n[Day 18/30 — Thu 22 Jan 2026 09:50 — balance €1,217.40]"
+        }
+      ],
+      "before_expiry_control": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            8
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Loaded 8 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (8/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 15/30 — Mon 19 Jan 2026 09:45 — balance €1,253.40]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\ncola-500ml               Cola 500ml                         large     10  €0.82\nsandwich-cheese          Fresh Cheese Sandwich              large     32  €1.76\n                           batch of 32 expires day 16\n\nStock at cost: €64.52\n\n[Day 15/30 — Mon 19 Jan 2026 10:10 — balance €1,253.40]"
+        },
+        {
+          "tool": "get_machine_inventory",
+          "args": [
+            "AI-LOUNGE:SNACK"
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Prosus Vending Bench — six machines at three locations. Depot: Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam\nRows A,B hold small items (18 units per slot). Rows C,D hold large items (10 units per slot). All DRINKS slots take large beverages.\n\nslot   takes  product                             qty   of  price\nAI-LOUNGE:SNACK:A1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:A3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B1 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B2 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:B3 small  (empty)                               0   18  -\nAI-LOUNGE:SNACK:C1 large  Fresh Cheese Sandwich                 8   10  NOT SET\nAI-LOUNGE:SNACK:C2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:C3 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D1 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D2 large  (empty)                               0   10  -\nAI-LOUNGE:SNACK:D3 large  (empty)                               0   10  -\n\nSlots with stock but no price sell nothing: AI-LOUNGE:SNACK:C1\n\n[Day 15/30 — Mon 19 Jan 2026 10:35 — balance €1,253.40]"
+        }
+      ],
+      "nonperishable_round_trip_control": [
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:DRINKS:C1",
+            "cola-500ml",
+            5
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 5 x Cola 500ml into slot AI-LOUNGE:DRINKS:C1 (5/10).\nSlot AI-LOUNGE:DRINKS:C1 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 10:10 — balance €1,265.40]"
+        },
+        {
+          "tool": "clear_slot",
+          "args": [
+            "AI-LOUNGE:DRINKS:C1"
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Returned 5 x Cola 500ml from slot AI-LOUNGE:DRINKS:C1 to storage.\n\n[Day 14/30 — Sun 18 Jan 2026 10:40 — balance €1,265.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n40 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        }
+      ],
+      "sale_after_reported_expiry": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,253.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,253.40]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            8
+          ],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 15,
+          "response": "Loaded 8 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (8/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 15/30 — Mon 19 Jan 2026 09:45 — balance €1,253.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,241.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,241.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n32 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,229.40. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,229.40]"
+        },
+        {
+          "tool": "set_price",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            4.2
+          ],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 17,
+          "response": "Slot AI-LOUNGE:SNACK:C1 (Fresh Cheese Sandwich) is now €4.20.\n\n[Day 17/30 — Wed 21 Jan 2026 09:05 — balance €1,229.40]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 17,
+          "day_after": 18,
+          "response": "You close up for the night.\n\n--- Day 18, Thursday 22 January 2026. Weather: rainy. Balance €1,221.60. 2 unread email(s).\nYesterday sold 2 units for €8.40.\n\n[Day 18/30 — Thu 22 Jan 2026 09:00 — balance €1,221.60]"
+        }
+      ],
+      "mixed_cohort_setup": [
+        {
+          "tool": "order_goods",
+          "args": [
+            "bakker-en-zoon",
+            {
+              "sandwich-cheese": 40
+            }
+          ],
+          "kwargs": {},
+          "day_before": 1,
+          "day_after": 1,
+          "response": "{\"order_id\": \"PO-1001\", \"paid\": 70.4, \"delivery_day\": 13, \"lines\": [{\"product_id\": \"sandwich-cheese\", \"quantity\": 40, \"unit_price\": 1.76}]}\n\n[Day 1/30 — Mon 05 Jan 2026 09:25 — balance €1,429.60]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 1,
+          "day_after": 2,
+          "response": "You close up for the night.\n\n--- Day 2, Tuesday 06 January 2026. Weather: rainy. Balance €1,417.60. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 2/30 — Tue 06 Jan 2026 09:00 — balance €1,417.60]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 2,
+          "day_after": 3,
+          "response": "You close up for the night.\n\n--- Day 3, Wednesday 07 January 2026. Weather: cold. Balance €1,405.60. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 3/30 — Wed 07 Jan 2026 09:00 — balance €1,405.60]"
+        },
+        {
+          "tool": "order_goods",
+          "args": [
+            "bakker-en-zoon",
+            {
+              "sandwich-cheese": 40
+            }
+          ],
+          "kwargs": {},
+          "day_before": 3,
+          "day_after": 3,
+          "response": "{\"order_id\": \"PO-1002\", \"paid\": 70.4, \"delivery_day\": 12, \"lines\": [{\"product_id\": \"sandwich-cheese\", \"quantity\": 40, \"unit_price\": 1.76}]}\n\n[Day 3/30 — Wed 07 Jan 2026 09:25 — balance €1,335.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 3,
+          "day_after": 4,
+          "response": "You close up for the night.\n\n--- Day 4, Thursday 08 January 2026. Weather: cold. Balance €1,323.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 4/30 — Thu 08 Jan 2026 09:00 — balance €1,323.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 4,
+          "day_after": 5,
+          "response": "You close up for the night.\n\n--- Day 5, Friday 09 January 2026. Weather: rainy. Balance €1,311.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 5/30 — Fri 09 Jan 2026 09:00 — balance €1,311.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 5,
+          "day_after": 6,
+          "response": "You close up for the night.\n\n--- Day 6, Saturday 10 January 2026. Weather: cold. Balance €1,299.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 6/30 — Sat 10 Jan 2026 09:00 — balance €1,299.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 6,
+          "day_after": 7,
+          "response": "You close up for the night.\n\n--- Day 7, Sunday 11 January 2026. Weather: cold. Balance €1,287.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 7/30 — Sun 11 Jan 2026 09:00 — balance €1,287.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 7,
+          "day_after": 8,
+          "response": "You close up for the night.\n\n--- Day 8, Monday 12 January 2026. Weather: cold. Balance €1,275.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 8/30 — Mon 12 Jan 2026 09:00 — balance €1,275.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 8,
+          "day_after": 9,
+          "response": "You close up for the night.\n\n--- Day 9, Tuesday 13 January 2026. Weather: rainy. Balance €1,263.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 9/30 — Tue 13 Jan 2026 09:00 — balance €1,263.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 9,
+          "day_after": 10,
+          "response": "You close up for the night.\n\n--- Day 10, Wednesday 14 January 2026. Weather: cold. Balance €1,251.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 10/30 — Wed 14 Jan 2026 09:00 — balance €1,251.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 10,
+          "day_after": 11,
+          "response": "You close up for the night.\n\n--- Day 11, Thursday 15 January 2026. Weather: rainy. Balance €1,239.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 11/30 — Thu 15 Jan 2026 09:00 — balance €1,239.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 11,
+          "day_after": 12,
+          "response": "You close up for the night.\n\n--- Day 12, Friday 16 January 2026. Weather: rainy. Balance €1,227.20. 1 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 12/30 — Fri 16 Jan 2026 09:00 — balance €1,227.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 12,
+          "day_after": 13,
+          "response": "You close up for the night.\n\nDelivery PO-1002 arrived in storage.\n--- Day 13, Saturday 17 January 2026. Weather: cold. Balance €1,215.20. 2 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 13/30 — Sat 17 Jan 2026 09:00 — balance €1,215.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 13,
+          "day_after": 14,
+          "response": "You close up for the night.\n\nDelivery PO-1001 arrived in storage.\n--- Day 14, Sunday 18 January 2026. Weather: cold. Balance €1,203.20. 3 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 14/30 — Sun 18 Jan 2026 09:00 — balance €1,203.20]"
+        },
+        {
+          "tool": "get_storage_inventory",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Storage at Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam:\n\nproduct_id               name                               size     qty  avg cost\nsandwich-cheese          Fresh Cheese Sandwich              large     80  €1.76\n                           batch of 40 expires day 15\n                           batch of 40 expires day 16\n\nStock at cost: €140.80\n\n[Day 14/30 — Sun 18 Jan 2026 09:25 — balance €1,203.20]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C2",
+            "sandwich-cheese",
+            10
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 10 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C2 (10/10).\nSlot AI-LOUNGE:SNACK:C2 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 10:10 — balance €1,203.20]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C3",
+            "sandwich-cheese",
+            10
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 10 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C3 (10/10).\nSlot AI-LOUNGE:SNACK:C3 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 10:55 — balance €1,203.20]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:D1",
+            "sandwich-cheese",
+            10
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 10 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:D1 (10/10).\nSlot AI-LOUNGE:SNACK:D1 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 11:40 — balance €1,203.20]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:D2",
+            "sandwich-cheese",
+            5
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 5 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:D2 (5/10).\nSlot AI-LOUNGE:SNACK:D2 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 12:25 — balance €1,203.20]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            5
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 5 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (5/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 13:10 — balance €1,203.20]"
+        },
+        {
+          "tool": "restock_machine",
+          "args": [
+            "AI-LOUNGE:SNACK:C1",
+            "sandwich-cheese",
+            5
+          ],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 14,
+          "response": "Loaded 5 x Fresh Cheese Sandwich into slot AI-LOUNGE:SNACK:C1 (10/10).\nSlot AI-LOUNGE:SNACK:C1 has no price set. It will not sell until you call set_price.\n\n[Day 14/30 — Sun 18 Jan 2026 13:55 — balance €1,203.20]"
+        }
+      ],
+      "mixed_old_expires_fresh_survives": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,191.20. 3 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,191.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,179.20. 3 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,179.20]"
+        }
+      ],
+      "mixed_all_expire": [
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 14,
+          "day_after": 15,
+          "response": "You close up for the night.\n\n--- Day 15, Monday 19 January 2026. Weather: cloudy. Balance €1,191.20. 3 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 15/30 — Mon 19 Jan 2026 09:00 — balance €1,191.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 15,
+          "day_after": 16,
+          "response": "You close up for the night.\n\n--- Day 16, Tuesday 20 January 2026. Weather: cold. Balance €1,179.20. 3 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 16/30 — Tue 20 Jan 2026 09:00 — balance €1,179.20]"
+        },
+        {
+          "tool": "wait_for_next_day",
+          "args": [],
+          "kwargs": {},
+          "day_before": 16,
+          "day_after": 17,
+          "response": "You close up for the night.\n\n35 x Fresh Cheese Sandwich passed their date in storage and were thrown away.\n--- Day 17, Wednesday 21 January 2026. Weather: cold. Balance €1,167.20. 3 unread email(s).\nYesterday sold 0 units for €0.00.\n\n[Day 17/30 — Wed 21 Jan 2026 09:00 — balance €1,167.20]"
+        }
+      ]
+    }
+  }
+}

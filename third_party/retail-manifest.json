@@ -1,0 +1,68 @@
+{
+  "retrieved": "2026-09-26",
+  "release": "RetailBench_ARR-6253",
+  "version_limit": "Anonymous source viewer has no immutable commit; exact downloaded bytes are hashed.",
+  "license": "MIT; Copyright (c) 2026 RetailBench Contributors",
+  "files": [
+    {
+      "path": "module/inventory.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/module/inventory.py",
+      "sha256": "c31fb1af43ac6cb2fa803ddb66a3b5fbaf18a8a34e1718e9d8f1f46a944bfd12"
+    },
+    {
+      "path": "module/sku.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/module/sku.py",
+      "sha256": "e734b93aacc48d2ae7d08bb681a9dd89569a20d4647d17f5d483407df6e935aa"
+    },
+    {
+      "path": "module/news_manager.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/module/news_manager.py",
+      "sha256": "e52aa5e14dc63ffd53cef937662265df7d5af18fb9a786183f487973d18b955f"
+    },
+    {
+      "path": "module/review_manager.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/module/review_manager.py",
+      "sha256": "975bf914bc8ee61a99070211c613883fa53b92e18c20fbe99db9a8f8c80c3666"
+    },
+    {
+      "path": "module/record_manager.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/module/record_manager.py",
+      "sha256": "af4b6ed1b43baa92b0574cb0a3163d35d55afd6e0a194ce1f01884b17a2a3232"
+    },
+    {
+      "path": "model/return_rate_model.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/model/return_rate_model.py",
+      "sha256": "038271823eac9fa3804a56911a33121df59e9eedea602b8cb29df4438f90f8fa"
+    },
+    {
+      "path": "model/sku_model.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/model/sku_model.py",
+      "sha256": "4cbdd0e3979e0f5872d7593cf7c3620c68b2ee13f9e4637719e5b75543fd9707"
+    },
+    {
+      "path": "model/review_star.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/model/review_star.py",
+      "sha256": "1eb5b69e8d39c93834db1bae543a81622aea245aa1fb5aaa5a3e6e87840c0141"
+    },
+    {
+      "path": "util/logger.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/util/logger.py",
+      "sha256": "bb1b52ba8dc8a09b828a9ff30bcab1de9f526ed89f05ff992e6a9d6ba91a17b7"
+    },
+    {
+      "path": "util/map_date_to_week.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/util/map_date_to_week.py",
+      "sha256": "ddaeade5ddc38f6507f86f13b14b0926a900f44332fe1e7ab99f8be5c85fc399"
+    },
+    {
+      "path": "util/file.py",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/util/file.py",
+      "sha256": "7ea61fa0556182a2481eca9e8ae2fcf490cbdefa7f6cdcfd84742d07827d5e7d"
+    },
+    {
+      "path": "LICENSE",
+      "source_url": "https://anonymous.4open.science/api/repo/RetailBench_ARR-6253/file/LICENSE",
+      "sha256": "161d66c222764ec2f282eaf20203f6dde69974ef55fbf6e23bec3baee62c375b"
+    }
+  ]
+}

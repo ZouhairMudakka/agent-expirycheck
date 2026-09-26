@@ -1,0 +1,113 @@
+{
+  "source": "https://github.com/ProsusAI/vending-bench",
+  "commit": "f9a1d7efde193de2242ed5afb1f3a326e362c75d",
+  "license": "Apache-2.0",
+  "scope": "Selected files needed for in-process cases and 58 engine tests",
+  "files": [
+    {
+      "path": "CITATION.cff",
+      "sha256": "b243b647209d072430b82f6120f32c7b97a1ba75291ad35eccbaf3921778c2f0",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/CITATION.cff"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "675f689e17db830db3bc20a51eacb924d15a7a358c38b724df8873e447739e5a",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/LICENSE"
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "d66e96322f5ffbae6c3c7b2cd7cce761f46c49d86c2efdeb38cdcc9ee38fc60e",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/NOTICE"
+    },
+    {
+      "path": "scripts/local_run.py",
+      "sha256": "4f74c5616eeffd736595d01acd68c02a4920b6b01ca22454d53e0700c33b1d6c",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/scripts/local_run.py"
+    },
+    {
+      "path": "scripts/sync_config.py",
+      "sha256": "4aa9352f245ecbedb4486a765a5757d3179be108b6702c466ccb8e679b8d5585",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/scripts/sync_config.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/docker-compose.yaml",
+      "sha256": "7d9ae062987863257857998556d7663e8852bbcbbf339d153209168e27974d2e",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/docker-compose.yaml"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/server.py",
+      "sha256": "1ad0d37e67499ee9615bd84a83b6708db4a6682c4f1f18cf7cfcb1e6e94549ac",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/server.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/variants/full-year.toml",
+      "sha256": "7fcab66b98b6754816fb96bb708a6b44887c3aa4e05a65b9ea299ab4d4abe959",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/variants/full-year.toml"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/__init__.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/__main__.py",
+      "sha256": "6cbcdb90e53f225049f6fc0eaf5991e027cc3d8704e9bbbacf1e6adf1265551e",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/__main__.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/catalog.py",
+      "sha256": "620e963de33617762993d74419d0b5a4a19630a925cd5a101c4e6faceb08e952",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/catalog.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/config.py",
+      "sha256": "9a64d41f7233d4489cbbb35c2cd3cbb475308f35662d047f8e16283ef248c86c",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/config.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/config.toml",
+      "sha256": "1a362a952f178de81480d413578af207092ff27be44ec97cac2b48c7227d9aeb",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/config.toml"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/demand.py",
+      "sha256": "df08e5d30a948bd40c7f900ad4d9c2d23626881ca0992b248280847b9fe38e53",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/demand.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/engine.py",
+      "sha256": "ceca8bd32334431beb3d989e88389f1e7711bd310d31465ceca14853e99ff53d",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/engine.py"
+    },
+    {
+      "path": "tasks/vending-bench/environment/sim-server/vending/mailroom.py",
+      "sha256": "8bb6e17f764479b32ab6b45f68eba7f93d6a0fc33fb2f5530a5cbb0ae438ad3f",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/environment/sim-server/vending/mailroom.py"
+    },
+    {
+      "path": "tasks/vending-bench/instruction.md",
+      "sha256": "013cfad2e05da1ebb802e7b5dd5467856e2cf49d8f912918a8e09384bacdbc47",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/instruction.md"
+    },
+    {
+      "path": "tasks/vending-bench/instruction.template.md",
+      "sha256": "cde3183691f5778c893bb279989b607a0326d91292fe7b0b6fb3f15203bfe40f",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/instruction.template.md"
+    },
+    {
+      "path": "tasks/vending-bench/solution/reference_bot.py",
+      "sha256": "a27b597de8fc29af86a63bfecd7469a0ebe5e88179b8d06f681bd6088b35419a",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/solution/reference_bot.py"
+    },
+    {
+      "path": "tasks/vending-bench/solution/world.json",
+      "sha256": "66e8a4a9a5b876eac088e7341492c4cb5bdacff321b1d3550ba41b7001a6e5a0",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tasks/vending-bench/solution/world.json"
+    },
+    {
+      "path": "tests/test_engine.py",
+      "sha256": "172f15d49ba00ed515a1c625080b6ac6e9bba170302456da6272e8f9b8e41490",
+      "source_url": "https://raw.githubusercontent.com/ProsusAI/vending-bench/f9a1d7efde193de2242ed5afb1f3a326e362c75d/tests/test_engine.py"
+    }
+  ]
+}
